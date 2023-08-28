@@ -2,7 +2,7 @@
 export default function Payment() {
 
     const { IMP } = window;
-    const code = 'imp14397622'
+    const code = 'imp37140280'
     IMP.init(code); // 'imp00000000' 대신 발급받은 가맹점 식별코드를 사용합니다.
 
     const payment = () =>{
