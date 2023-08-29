@@ -128,7 +128,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public boolean modifyInfo(MemberDTO memberDTO) { //회원 정보 수정
+    public boolean modifyInfo(MemberDTO memberDTO,HttpServletResponse response) { //회원 정보 수정
         MemberEntity memberEntity = MemberEntity.DTOToEntity(memberDTO);
         Optional<MemberEntity> byUserNumber = memberRepository.findByUserNumber(memberEntity.getUserNumber());
 
@@ -145,6 +145,15 @@ public class MemberServiceImpl implements MemberService {
                         LocalDateTime.now()
                 );
                 log.info("회원정보 수정에 성공했습니다.");
+
+                String [] cookieKey = {"accessToken"};
+                cookieConfig.deleteCookie(response,cookieKey);
+
+                MemberDTO memberDTO1 = MemberDTO.EntityToDTO(memberEntity);
+                TokenDTO generateAccessToken = tokenConfig.generateAccessToken(memberDTO1);
+
+                Cookie accessToken = cookieConfig.setCookie(generateAccessToken.getAccessToken(), "accessToken", false, "/", 3600);
+                response.addCookie(accessToken);
 
                 return true;
 
@@ -254,15 +263,15 @@ public class MemberServiceImpl implements MemberService {
             for (MemberEntity dormantAccount : dormantAccounts) {
 
                 try{Timestamp deletedTime = dormantAccount.getTimeBaseEntity().getDeletedTime();
-                long now = new Timestamp(System.currentTimeMillis()).getTime();
+                    long now = new Timestamp(System.currentTimeMillis()).getTime();
 
-                long twoWeeks = 14 * 24 * 60 * 60 * 1000L;
+                    long twoWeeks = 14 * 24 * 60 * 60 * 1000L;
 
-                long deleteDate = twoWeeks + deletedTime.getTime(); //지운 날짜 2주 뒤
+                    long deleteDate = twoWeeks + deletedTime.getTime(); //지운 날짜 2주 뒤
 
-                if (now > deleteDate) {
-                    memberRepository.deleteByUserNumber(dormantAccount.getUserNumber());
-                }}catch (NullPointerException e){
+                    if (now > deleteDate) {
+                        memberRepository.deleteByUserNumber(dormantAccount.getUserNumber());
+                    }}catch (NullPointerException e){
                     log.error("",e);
                 }
             }

@@ -9,9 +9,7 @@ import CategoryHeader from "./component/USER/CategoryHeader";
 import TopBtn from "./js/jw_topBtn";
 import ScrollTop from "./js/ScrollTop";
 import Footer from "./component/USER/Footer";
-import Main from "./component/USER/Main";
 import MyPageAuth from "./component/USER/MyPageAuth";
-import NotFound from "./js/NotFound";
 
 
 function App() {
@@ -23,7 +21,6 @@ function App() {
             <TopBtn/>
             <Routes>
                 <Route path={"/"} element={<Outlet/>}>
-                    <Route path={"home/"} element={<Main/>}/>
                     <Route path={"home/"} element={<Outlet/>}>
                         <Route path={"login/"} element={<LogInPage/>}/>
                         <Route path={"signUp/"} element={<SignUpPage/>}/>

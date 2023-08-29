@@ -26,7 +26,7 @@ public class MemberController {
 
     @PostMapping("/signUp") //회원 가입
     public boolean signUp(@Valid MemberDTO memberDTO) throws Exception {
-       return memberService.signUp(memberDTO);
+        return memberService.signUp(memberDTO);
     }
 
     @GetMapping("/signUp/idValidation") //아이디 중복 검증
@@ -52,7 +52,7 @@ public class MemberController {
 
     @GetMapping("/logIn") //로그인
     public Object login(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-       return memberService.login(memberDTO, request, response);
+        return memberService.login(memberDTO, request, response);
     }
 
     @GetMapping("/logOut") //로그아웃
@@ -71,14 +71,14 @@ public class MemberController {
     }
 
     @PostMapping("/myPage/update") // 본인 정보 업데이트
-    public boolean modifyInfo(@Valid MemberDTO memberDTO) { //회원 정보 수정
-        return memberService.modifyInfo(memberDTO);
+    public boolean modifyInfo(@Valid MemberDTO memberDTO, HttpServletResponse response) { //회원 정보 수정
+        return memberService.modifyInfo(memberDTO, response);
     }
 
 
     @GetMapping("/findMyInfo/byEmail")// 아이디찾기(이메일값 넘기고 인증번호 받기)
     public List<String> findId(@Valid MemberDTO memberDTO) {
-       return emailService.findIdByEmail(memberDTO);
+        return emailService.findIdByEmail(memberDTO);
     }
 
     @GetMapping("/findMyInfo/byEmail/auth")// 아이디찾기(전송된 인증번호 입력하기)

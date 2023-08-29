@@ -5,16 +5,14 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
 
 public interface AdminRepository extends JpaRepository<MemberEntity,Long> {
 
 
     @Modifying
     @Transactional
-    @Query(value = "insert into kdt.member_info (" +
+    @Query(value = "insert into book.member_info (" +
             "username, " +
             "user_id, " +
             "password, " +

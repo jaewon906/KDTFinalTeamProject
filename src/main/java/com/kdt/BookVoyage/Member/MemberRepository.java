@@ -16,12 +16,12 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
     @Modifying
     @Query(value = "update MemberEntity m set m.deleteFlag='Y', m.timeBaseEntity.DeletedTime=:dateTime where m.userNumber=:userNumber")
-    void updateDeleteFlag(@Param("userNumber") String userNumber, LocalDateTime dateTime);
+    void updateDeleteFlag(@Param("userNumber") String userNumber, @Param("dateTime") LocalDateTime dateTime);
 
     @Modifying
     @Transactional
     @Query(value = "update MemberEntity m set m.deleteFlag=:deleteFlag, m.timeBaseEntity.DeletedTime=:dateTime where m.userNumber=:userNumber")
-    void updateUserState(@Param("userNumber") String userNumber, @Param("deleteFlag") String deleteFlag, LocalDateTime dateTime);
+    void updateUserState(@Param("userNumber") String userNumber, @Param("deleteFlag") String deleteFlag, @Param("dateTime") LocalDateTime dateTime);
 
     @Modifying
     @Query(value = "update MemberEntity m set m.deleteFlag='N', m.timeBaseEntity.DeletedTime=null where m.userId=:userId")
@@ -44,7 +44,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
             "m.timeBaseEntity.UpdatedTime=:updateTime, " +
             "m.userTel=:userTel " +
             "where m.userNumber=:userNumber"
-            )
+    )
     void updateMyInfo(@Param("username")String username,
                       @Param("nickname")String nickname,
                       @Param("userAddress")String userAddress,
@@ -52,7 +52,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
                       @Param("gender")String gender,
                       @Param("userTel")String userTel,
                       @Param("userNumber")String userNumber,
-                      LocalDateTime updateTime);
+                      @Param("updateTime") LocalDateTime updateTime);
 
     List<MemberEntity> findByDeleteFlag(String deleteFlag);
     Optional<MemberEntity> findByUserId(String userId);

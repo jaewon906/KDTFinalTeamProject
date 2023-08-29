@@ -6,7 +6,7 @@ export default function CategoryHeader() {
         <div className={style.container}>
             <div className={style.main}>
                 <Link to={"/home"}>카테고리1</Link>
-                <Link to={"/home"}>카테고리2</Link>
+                <Link to={"/home1"}>카테고리2</Link>
                 <Link to={"/home"}>카테고리3</Link>
                 <Link to={"/home"}>카테고리4</Link>
                 <Link to={"/home"}>카테고리5</Link>

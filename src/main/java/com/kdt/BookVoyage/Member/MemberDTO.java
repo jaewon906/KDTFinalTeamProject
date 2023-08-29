@@ -32,6 +32,7 @@ public class MemberDTO {
 
     private String userAge; // 사용자 나이
 
+    @Pattern(regexp ="^(남자|여자)$")
     private String gender; // 사용자 성별
 
     @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$")
@@ -39,7 +40,7 @@ public class MemberDTO {
 
     private String role; // 사용자 권한
 
-    @Pattern(regexp = "^[Y,N]$")
+    @Pattern(regexp = "^[Y,N,B]$")
     private String deleteFlag;// DB에서 완전 삭제 대신 값이 Y일때 비활성화 처리. 추후 계정 복구를 위함
     private String userNumber; //회원 고유번호 (난수)
 
